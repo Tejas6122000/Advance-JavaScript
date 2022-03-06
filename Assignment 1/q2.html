@@ -35,20 +35,36 @@
                 }else{
                     licenseName = "null"
                 }
-                let text = '{'+
-                    '"name":"'+ data.items[i].name+ '",'+
-                    '"full_name":"'+ data.items[i].full_name+ '",'+
-                    '"private":"'+ data.items[i].private+ '"'+
-                    '"owner":{ "login":"'+ data.items[i].owner.login+'", "name":"'+ owner.name+ '", "followersCount":"'+ owner.followers+'", "followingCount":"'+ owner.following+'"}'+
-                    '"licenseName":"'+licenseName +'",'+
-                    '"score":"'+data.items[i].score +'",'+
-                    '"numberOfBranches":"'+ branch.length +'",'+
+                // let text = '{'+
+                //     '"name":"'+ data.items[i].name+ '",'+
+                //     '"full_name":"'+ data.items[i].full_name+ '",'+
+                //     '"private":"'+ data.items[i].private+ '"'+
+                //     '"owner":{ "login":"'+ data.items[i].owner.login+'", "name":"'+ owner.name+ '", "followersCount":"'+ owner.followers+'", "followingCount":"'+ owner.following+'"}'+
+                //     '"licenseName":"'+licenseName +'",'+
+                //     '"score":"'+data.items[i].score +'",'+
+                //     '"numberOfBranches":"'+ branch.length +'",'+
 
 
-                '}'
+                // '}'
+
+
+                text1= {
+                    name: data.items[i].name,
+                    full_name:data.items[i].full_name,
+                    private:data.items[i].private,
+                    owner:{
+                        login:data.items[i].owner.login,
+                        name:owner.name,
+                        followersCount:owner.followers,
+                        followingCount:owner.following
+
+                    },
+                    licenseName:licenseName,
+                    score: data.items[i].score,
+                    numberOfBranches:branch.length
+                }
                 
-                console.log(text);   
-                document.write(text);            
+                console.log(text1);            
             }
 
 
