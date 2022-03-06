@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class QueenAttack {
+            constructor(queen1Row, queen1Column, queen2Row, queen2Column) {
+                this.queen1Row = queen1Row;
+                this.queen1Column = queen1Column;
+                this.queen2Row = queen2Row;
+                this.queen2Column = queen2Column;
+            }
+            position() {
+                return "(" + this.queen1Row + "," + this.queen1Column + "),(" + this.queen2Row + "," + this.queen2Column + ")"
+            }
+            canAttack() {
+                if (this.queen1Row == this.queen2Row) return true;
+                if (this.queen1Column == this.queen2Column) return true;
+                if (
+                    Math.abs(this.queen1Row - this.queen2Row) ==
+                    Math.abs(this.queen1Column - this.queen2Column)
+                )
+                    return true;
+
+                return false;
+            }
+        }
+
+        function attack(queens) {
+            if (queens.canAttack()) {
+                document.write("<h1>Queens at position " + queens.position() + " can attack each other</h1>");
+            } else {
+                document.write("<h1>Queens at position " + queens.position() + " can't attack each other</h1>");
+            }
+        }
+
+        let queens1 = new QueenAttack(0, 0, 5, 3);
+        let queens2 = new QueenAttack(0, 0, 3, 3);
+        attack(queens1)
+        attack(queens2)
+
+
+    </script>
+</body>
+
+</html>

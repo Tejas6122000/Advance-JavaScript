@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Check Console</h1>
+
+    <script>
+        fetch(
+            "https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json"
+        )
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (dataset) {
+                actors = [];
+                genres = [];
+                temp = {};
+                output = {};
+                for (i = 0; i < dataset.length; i++) {
+                    for (j = 0; j < dataset[i].cast.length; j++) {
+                        temp["Actor"] = dataset[i].cast[j];
+                        temp["Movies"] = dataset[i].title;
+                        actors.push(Object.assign({}, temp));
+                    }
+                    for (j = 0; j < dataset[i].genres.length; j++) {
+                        temp["Type"] = dataset[i].genres[j];
+                        temp["Movies"] = dataset[i].title;
+                        genres.push(Object.assign({}, temp));
+                    }
+                }
+
+                var output1 = actors.reduce(function (ori, curr) {
+                    var occurs = ori.reduce(function (n, item, i) {
+                        return item.Actor === curr.Actor ? i : n;
+                    }, -1);
+                    if (occurs >= 0) {
+                        ori[occurs].Movies = ori[occurs].Movies.concat(curr.Movies);
+                    } else {
+                        var ob = {
+                            Actor: curr.Actor,
+                            Movies: [curr.Movies],
+                        };
+                        ori = ori.concat([ob]);
+                    }
+
+                    return ori;
+                }, []);
+
+                var output2 = genres.reduce(function (ori, curr) {
+                    var occurs = ori.reduce(function (n, item, i) {
+                        return item.Type === curr.Type ? i : n;
+                    }, -1);
+                    if (occurs >= 0) {
+                        ori[occurs].Movies = ori[occurs].Movies.concat(curr.Movies);
+                    } else {
+                        var ob = {
+                            Type: curr.Type,
+                            Movies: [curr.Movies],
+                        };
+                        ori = ori.concat([ob]);
+                    }
+                    return ori;
+                }, []);
+
+                output["Actors"] = output1;
+                output["Genres"] = output2;
+                console.log(output);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    </script>
+</body>
+
+</html>

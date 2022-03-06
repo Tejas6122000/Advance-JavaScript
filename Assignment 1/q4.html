@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Check console
+
+    <script>
+
+        async function flights() {
+            const airportsResponse = await fetch(
+                `https://think.cs.vt.edu/corgis/datasets/json/airlines/airlines.json`
+            );
+            const airportsData = await airportsResponse.json();
+
+            airportsData.map((airport) => {
+                const answer = airport.Statistics.Flights;
+                const sum =
+                    airport.Statistics.Flights.Cancelled +
+                    airport.Statistics.Flights.Delayed +
+                    airport.Statistics.Flights.Diverted +
+                    airport.Statistics.Flights["On Time"];
+
+                const sumEqualToTotal = sum === airport.Statistics.Flights.Total;
+
+                answer["sumEqualToTotal"] = sumEqualToTotal;
+
+                console.log(answer);
+            });
+        }
+
+        flights();
+    </script>
+</body>
+
+</html>
